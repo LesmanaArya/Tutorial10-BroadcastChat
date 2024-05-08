@@ -36,3 +36,16 @@ let (mut ws_stream, _) =
             .await?;
 ```
 Websocket protocol yang digunakan di program ini tetap menggunakan ```tokio_websockets``` yang umum digunakan dalam app berbasis tokio. 
+
+## 2.2 Small changes. Add some information to client
+### Server
+![server](img/Screenshot%20(1586).png)
+### Client
+![client1](img/Screenshot%20(1587).png)
+![client2](img/Screenshot%20(1588).png)
+![client3](img/Screenshot%20(1589).png)
+Pada bagian ini, kita ingin secara detail memberikan informasi tambahan mengenai siapa yang mengirim message tersebut. Hal ini dapat dilakukan dengan memodifikasi bagian pada server.rs yaitu pada:
+```
+bcast_tx.send(format!("{addr} : {text}"))?;
+```
+Pesan yang akan ditampilkan di server sekarang juga akn menampilkan dari port mana message tersebut dikirim. Pesan tersebut juga akan di - broadcast ke seluruh client yang terhubung dengan format seperti itu sehingga seluruh client dapat melihat informasi mengenai dari mana message tersebut dikirim.
