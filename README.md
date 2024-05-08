@@ -8,7 +8,7 @@
 ### Server receiving messages
 ![server](img/ss_server.png)
 
-Kita dapat menjalankan server dan client masing-masing menggunakan ```cargo run --bin server``` dan ```cargo run --bin client```. Setiap client akan terhubung ke server melalui Websocket. Setiap client menginput suatu message, maka message tersebut akan diteruskan ke server dan server akan mengirimkannya ke semua client yang terhubung saat itu. Itulah sebabnya setiap client dapat melihat pesan-pesan yang dikirimkan oleh client lainnya
+Kita dapat menjalankan server dan client masing-masing menggunakan ```cargo run --bin server``` dan ```cargo run --bin client```. Kita jalankan satu run server serta tiga run client. Setiap client akan terhubung ke server melalui sebuah Websocket. Setiap client akan diminta untuk menginput suatu message. Message yang diinput tersebut nantinya akan diteruskan ke server dan server akan mengirimkannya ke semua client yang terhubung saat itu. Itulah sebabnya setiap client dapat melihat pesan-pesan yang dikirimkan oleh client lainnya. 
 
 ##  Modifying the websocket port
 Untuk mengubah port menjadi 8080, pertama-tama kita perlu mengubah bagian server.rs tepatnya pada kode:
@@ -35,7 +35,7 @@ let (mut ws_stream, _) =
             .connect()
             .await?;
 ```
-Websocket protocol yang digunakan di program ini tetap menggunakan ```tokio_websockets``` yang umum digunakan dalam app berbasis tokio. 
+Websocket protocol yang digunakan di program ini tetap menggunakan ```tokio_websockets``` yang umum digunakan dalam app berbasis tokio. Selama masih menggunakan  ```tokio_websockets```, maka Websocket yang digunakan akan sama.
 
 ## 2.2 Small changes. Add some information to client
 ### Server
@@ -48,4 +48,4 @@ Pada bagian ini, kita ingin secara detail memberikan informasi tambahan mengenai
 ```
 bcast_tx.send(format!("{addr} : {text}"))?;
 ```
-Pesan yang akan ditampilkan di server sekarang juga akn menampilkan dari port mana message tersebut dikirim. Pesan tersebut juga akan di - broadcast ke seluruh client yang terhubung dengan format seperti itu sehingga seluruh client dapat melihat informasi mengenai dari mana message tersebut dikirim.
+Pesan yang akan ditampilkan di server sekarang juga akan menampilkan dari port mana message tersebut dikirim. Pesan tersebut juga akan di - broadcast ke seluruh client yang terhubung dengan format seperti itu sehingga seluruh client dapat melihat informasi mengenai dari mana message tersebut dikirim. Aplikasi chatting pada umumnya, informasi pesan tambahannya dimodifikasi lebih lanjut seperti yang ditampilkan adalah username ataupun nomor lainnya
